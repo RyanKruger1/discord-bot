@@ -8,6 +8,8 @@ npm install discord.js
 
 npm i feedme
 
+npm install dotenv
+
 npm i csv-reader
 
 run with "node ." via command line
