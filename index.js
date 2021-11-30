@@ -74,6 +74,6 @@ setInterval(function (){let counter = 0;
             });
         });
     
-},360000);
+},86400000);
 
 
