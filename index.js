@@ -28,16 +28,25 @@ function postedInTheLastDay(pubdate) {
     let day = dates[1].trim()
 
     let diffrence = now.getUTCDate(now) - day;
-    if(diffrence <= 1){
+    if (diffrence < 1) {
         return true;
     }
-    else{
+    else {
         return false;
     }
 }
 
-function display(msg) {
-    let counter = 0;
+client.on('ready', () => {
+    console.log(`Logged in as ${client.user.tag}!`)
+})
+
+client.on('message', async msg => {
+    controller(msg)
+})
+
+client.login(process.env.DISCORD_BOT_TOKEN)
+
+setInterval(function (){let counter = 0;
     let inputStream = Fs.createReadStream('rsslinks.csv', 'utf8');
     inputStream
         .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
@@ -57,23 +66,15 @@ function display(msg) {
                         t: item.title, l: item.link, p: item.pubdate
                     }
                     console.log(newsItem);
-                    if(postedInTheLastDay(item.pubdate)){
-                        msg.reply("News\n:" + item.title + "\n" + item.link + "\n" + item.pubdate)
+                    if (postedInTheLastDay(item.pubdate)) {
+                        client.channels.cache.get("914790308707975188").send("News\n:" + item.title + "\n" + item.link + "\n" + item.pubdate)
+
                     }
                 });
                 res.pipe(parser);
             });
         });
-}
-
-client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`)
-})
-
-client.on('message', async msg => {
-    controller(msg)
-})
-
-client.login(process.env.DISCORD_BOT_TOKEN)
+    
+},360000);
 
 
