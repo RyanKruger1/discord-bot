@@ -18,21 +18,22 @@ function controller(msg) {
     if (msg.content.startsWith("!display")) {
         display(msg)
     }
+    if (msg.content.startsWith("!test")) {
+        display(msg)
+    }
 }
 
 function postedInTheLastDay(pubdate) {
     const dates = pubdate.split(',')[1].split(' ')
     let day = dates[1].trim()
-    let month = dates[2].trim()
-    let year = dates[3].trim()
-    let time = dates[4].trim()
-    let hour = time.split(':')[0]
 
     let diffrence = now.getUTCDate(now) - day;
     if(diffrence <= 1){
         return true;
     }
-
+    else{
+        return false;
+    }
 }
 
 function display(msg) {
