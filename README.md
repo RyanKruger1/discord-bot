@@ -8,5 +8,7 @@ npm install discord.js
 
 npm i feedme
 
+npm i csv-reader
+
 run with "node ." via command line
  
