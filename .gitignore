@@ -1687,3 +1687,7 @@ node_modules/xmlbuilder/lib/XMLUserDataHandler.js
 node_modules/xmlbuilder/lib/XMLWriterBase.js
 node_modules/xmlbuilder/typings/index.d.ts
 .env
+node_modules/dateformat/LICENSE
+node_modules/dateformat/lib/dateformat.js
+node_modules/dateformat/Readme.md
+node_modules/dateformat/package.json
