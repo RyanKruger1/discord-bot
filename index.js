@@ -67,8 +67,7 @@ setInterval(function (){let counter = 0;
                     }
                     console.log(newsItem);
                     if (postedInTheLastDay(item.pubdate)) {
-                        client.channels.cache.get("914790308707975188").send("News\n:" + item.title + "\n" + item.link + "\n" + item.pubdate)
-
+                        client.channels.cache.get(process.env.CHANNEL).send("News\n:" + item.title + "\n" + item.link + "\n" + item.pubdate)
                     }
                 });
                 res.pipe(parser);
