@@ -12,14 +12,14 @@ const now = new Date();
 
 function controller(msg) {
     if (msg.content.startsWith("!hello")) {
-        postedInTheLastDay("Thu, 25 Nov 2021 16:02:38 +0000");
+     
         msg.reply("world!")
     }
     if (msg.content.startsWith("!display")) {
-        display(msg)
+       msg.reply("nothing to display")
     }
     if (msg.content.startsWith("!test")) {
-        display(msg)
+       msg.reply("message coming soon")
     }
 }
 
