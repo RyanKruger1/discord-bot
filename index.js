@@ -12,28 +12,48 @@ const now = new Date();
 
 function controller(msg) {
     if (msg.content.startsWith("!hello")) {
-     
+
         msg.reply("world!")
     }
     if (msg.content.startsWith("!display")) {
-       msg.reply("nothing to display")
+        msg.reply("nothing to display")
     }
     if (msg.content.startsWith("!test")) {
-       msg.reply("message coming soon")
+        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:20:07 +0000"));
+        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:19:07 +0000"));
+        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:18:07 +0000"));
+        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:17:07 +0000"));
+        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:16:07 +0000"));
+        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:15:07 +0000"));
+        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:14:07 +0000"));
+        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:13:07 +0000"));
+        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:12:07 +0000"));
+        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:11:07 +0000"));
     }
 }
 
-function postedInTheLastDay(pubdate) {
-    const dates = pubdate.split(',')[1].split(' ')
-    let day = dates[1].trim()
+function postedInLast15Minutes(pubdate) {
 
-    let diffrence = now.getUTCDate(now) - day;
-    if (diffrence < 1) {
-        return true;
+    let dates = new Date(pubdate.split(',')[1].trim())
+    let monthDiff = now.getUTCMonth() - dates.getUTCMonth();
+    let dayDiff = now.getUTCDate() - dates.getUTCDate()
+    let hourDiff = now.getUTCHours() - dates.getUTCHours()
+    let minuteDiff = now.getUTCMinutes() - dates.getUTCMinutes();
+
+    if (monthDiff == 0 || monthDiff < 1) {
+
+        if (dayDiff == 0 || dayDiff < 1) {
+
+            if (hourDiff == 0 || hourDiff < 1) {
+
+                if (minuteDiff < 15 || minuteDiff < -15) {
+                    return true
+                }
+            }
+        }
     }
-    else {
-        return false;
-    }
+
+    return false;
 }
 
 client.on('ready', () => {
@@ -46,7 +66,8 @@ client.on('message', async msg => {
 
 client.login(process.env.DISCORD_BOT_TOKEN)
 
-setInterval(function (){let counter = 0;
+setInterval(function () {
+    let counter = 0;
     let inputStream = Fs.createReadStream('rsslinks.csv', 'utf8');
     inputStream
         .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
@@ -66,14 +87,14 @@ setInterval(function (){let counter = 0;
                         t: item.title, l: item.link, p: item.pubdate
                     }
                     console.log(newsItem);
-                    if (postedInTheLastDay(item.pubdate)) {
+                    if (postedInLast15Minutes(item.pubdate)) {
                         client.channels.cache.get(process.env.CHANNEL).send("News\n:" + item.title + "\n" + item.link + "\n" + item.pubdate)
                     }
                 });
                 res.pipe(parser);
             });
         });
-    
-},86400000);
+
+}, 900000);
 
 
