@@ -19,16 +19,7 @@ function controller(msg) {
         msg.reply("nothing to display")
     }
     if (msg.content.startsWith("!test")) {
-        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:20:07 +0000"));
-        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:19:07 +0000"));
-        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:18:07 +0000"));
-        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:17:07 +0000"));
-        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:16:07 +0000"));
-        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:15:07 +0000"));
-        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:14:07 +0000"));
-        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:13:07 +0000"));
-        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:12:07 +0000"));
-        console.log(postsInTheLastMinute("Fri, 04 Dec 2021 23:11:07 +0000"));
+        msg.reply("everything is up and running......")
     }
 }
 
