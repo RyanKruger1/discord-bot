@@ -58,34 +58,35 @@ client.on('message', async msg => {
 client.login(process.env.DISCORD_BOT_TOKEN)
 
 setInterval(function () {
-    let counter = 0;
-    let inputStream = Fs.createReadStream('rsslinks.csv', 'utf8');
-    inputStream
-        .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
-        .on('data', function (row) {
-            console.log(row[0]);
-            https.get(row[0], (res) => {
-                if (res.statusCode != 200) {
-                    console.error(new Error(`status code ${res.statusCode}`));
-                    return;
-                }
-                let parser = new FeedMe();
-                parser.on('title', (title) => {
-                    console.log('title of feed is', title);
-                });
-                parser.on('item', (item) => {
-                    let newsItem = {
-                        t: item.title, l: item.link, p: item.pubdate
+    console.log('[' + now.getDate() + ']' + 'Checking sources.........')
+    try {
+        let counter = 0;
+        let inputStream = Fs.createReadStream('rsslinks.csv', 'utf8');
+        inputStream
+            .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
+            .on('data', function (row) {
+                console.log(row[0]);
+                https.get(row[0], (res) => {
+                    if (res.statusCode != 200) {
+                        console.error(new Error(`status code ${res.statusCode}`));
+                        return;
                     }
-                    console.log(newsItem);
-                    if (postedInLast15Minutes(item.pubdate)) {
-                        client.channels.cache.get(process.env.CHANNEL).send("News\n:" + item.title + "\n" + item.link + "\n" + item.pubdate)
-                    }
+                    let parser = new FeedMe();
+                    parser.on('title', (title) => {
+                        console.log('title of feed is', title);
+                    });
+                    parser.on('item', (item) => {
+                        if (postedInLast15Minutes(item.pubdate)) {
+                            client.channels.cache.get(process.env.CHANNEL).send("News\n:" + item.title + "\n" + item.link + "\n" + item.pubdate)
+                        }
+                    });
+                    res.pipe(parser);
                 });
-                res.pipe(parser);
             });
-        });
-
+    } catch (error) {
+        console.log('[ERROR]:' + error)
+        client.channels.cache.get(process.env.ERROR_CHANNEL).send('[ERROR]:' + error);
+    }
 }, 900000);
 
 
