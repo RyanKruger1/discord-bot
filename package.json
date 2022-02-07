@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
+    "start": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,6 +16,9 @@
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "feedme": "^2.0.2",
-    "rss-parser": "^3.12.0"
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "rss-parser": "^3.12.0",
+    "sequelize": "^6.13.0"
   }
 }

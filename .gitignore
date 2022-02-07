@@ -1691,3 +1691,5 @@ node_modules/dateformat/LICENSE
 node_modules/dateformat/lib/dateformat.js
 node_modules/dateformat/Readme.md
 node_modules/dateformat/package.json
+node_modules
+workspace.code-workspace
