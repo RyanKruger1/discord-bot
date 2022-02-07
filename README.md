@@ -1,5 +1,9 @@
 # discord-bot
 
+This project is for my learning of DevOps. 
+
+You are happy too take a look, thank you.
+
 Bot for sending messages to my discord
 
 NPM Packages
